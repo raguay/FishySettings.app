@@ -3,6 +3,9 @@
     <input 
       bind:value={aliaskey}
     />
+    <span class='equal'>
+      =
+    </span>
     <input
       bind:value={aliasdef}
       on:keyup={(e) => {
@@ -52,7 +55,11 @@
   }
 
   #addAliasPart input {
-    width: 100px;
+    width: 150px;
+  }
+
+  .equal {
+    margin: 0px 10px 0px 10px;
   }
 </style>
 

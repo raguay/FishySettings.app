@@ -4,7 +4,7 @@
     {#each Object.entries(aliases) as [key, value]}
       <div class='aliasLine'>
         <span class='alias'>{key}</span>
-        <span class='alias'> = </span>
+        <span class='equals'> = </span>
         <span class='alias'>{value}</span>
         <span
           on:click={() => { deleteAlias(key,value); }}
@@ -43,6 +43,10 @@
 
   .alias {
     margin: 5px 0px 0px 10px;
+  }
+
+  .equals {
+    margin: 0px 10px 0px 10px;
   }
 
   .aliasLine {

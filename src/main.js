@@ -1,4 +1,4 @@
-import App from './App.svelte';
+import App from './App.svx';
 
 fig.init = (stdin, options) => {
   //
