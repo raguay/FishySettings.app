@@ -18,15 +18,6 @@
 />
 
 <style>
-  #figPath {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    padding: 0px;
-    margin: 0px;
-    width: 100%;
-  }
-
   #paths {
     display: flex;
     flex-direction: column;

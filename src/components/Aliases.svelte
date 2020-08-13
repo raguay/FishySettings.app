@@ -1,9 +1,9 @@
 <div id='aliases'>
   {#each Object.entries(aliases) as [key, value]}
     <div class='aliasLine'>
-      <span class='alias'>{key}</span>
+      <span class='aliasleft'>{key}</span>
       <span class='equals'> = </span>
-      <span class='alias'>{value}</span>
+      <span class='aliasright'>{value}</span>
       <span
         on:click={() => { deleteAlias(key,value); }}
         class='delete'
@@ -28,12 +28,16 @@
     width: 100%;
   }
 
-  .alias {
-    margin: 5px 0px 0px 10px;
+  .aliasleft {
+    margin: 0px 0px 0px 10px;
+  }
+
+  .aliasright {
+    margin: 0px 0px 0px 0px;
   }
 
   .equals {
-    margin: 0px 10px 0px 10px;
+    margin: 0px 5px;
   }
 
   .aliasLine {

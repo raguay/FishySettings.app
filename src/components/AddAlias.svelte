@@ -1,12 +1,14 @@
 <div id='addAliasPart'>
   {#if add}
     <input 
+      class="left"
       bind:value={aliaskey}
     />
     <span class='equal'>
       =
     </span>
     <input
+      class="right"
       bind:value={aliasdef}
       on:keyup={(e) => {
         if(e.key === 'Enter') {
@@ -20,6 +22,7 @@
       }}
     />
     <span
+      class="add"
       on:click={() => { 
         dispatch('newAlias', {
           key: aliaskey,
@@ -32,7 +35,7 @@
     </span>
   {:else}
     <span
-      class="add"
+      class="addfirst"
       on:click={() => { add = true; aliaskey = ''; aliasdef = ''; }}
     >
       +
@@ -44,7 +47,7 @@
   #addAliasPart {
     display: flex;
     flex-direction: row;
-    margin: 20px 0px 10px 0px;
+    margin: 0px;
     padding: 0px;
   }
 
@@ -52,14 +55,31 @@
     width: 125px;
   }
 
+  .left {
+    margin: 0px 0px 0px 0px;
+  }
+
+  .right {
+    margin: 0px 0px 0px 0px;
+  }
+
   .equal {
-    margin: 5px;
+    margin: 5px 5px 0px 5px;
     color: black;
   }
 
+  .addfirst {
+    color: red;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0px 0px 0px 20px;
+  }
+  
   .add {
     color: red;
     cursor: pointer;
+    font-size: 20px;
+    margin: 3px 0px 0px 5px;
   }
 </style>
 

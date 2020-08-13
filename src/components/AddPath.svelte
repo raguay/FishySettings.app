@@ -30,7 +30,7 @@
   #addPathPart {
     display: flex;
     flex-direction: row;
-    margin: 20px 0px 10px 0px;
+    margin: 0px;
     padding: 0px;
   }
 

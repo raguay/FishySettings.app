@@ -23,7 +23,7 @@ To add a path, simply click the red plus at the bottom of the list of paths.
 Then, add the new path to the input box given and press the enter key or 
 the red plus sign at the end of the input box.
 
-To remove an alias, just click on the red `X` at the end of the line.
+To remove an path, just click on the red `X` at the end of the line.
 
 <Paths 
   fig={fig}
