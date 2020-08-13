@@ -11,12 +11,14 @@
       }}
     />
     <span
+      class="add"
       on:click={() => { dispatch('newPath', path); add = false; }}
     >
       +
     </span>
   {:else}
     <span
+      class="add"
       on:click={() => { add = true; path = ''; }}
     >
       +
@@ -32,7 +34,7 @@
     padding: 0px;
   }
 
-  #addPathPart span {
+  .add {
     color: red;
     cursor: pointer;
     font-size: 20px;

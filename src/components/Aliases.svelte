@@ -1,38 +1,25 @@
-<div id='figAlias'>
-  <h3>Fig Aliases</h3>
-  <div id='aliases'>
-    {#each Object.entries(aliases) as [key, value]}
-      <div class='aliasLine'>
-        <span class='alias'>{key}</span>
-        <span class='equals'> = </span>
-        <span class='alias'>{value}</span>
-        <span
-          on:click={() => { deleteAlias(key,value); }}
-          class='delete'
-        >
-          X
-        </span>
-      </div>
-    {/each}
-  </div>
-  <AddAlias 
-    on:newAlias={(e) => {
-      addAlias(e.detail.key, e.detail.def);
-    }}
-  />
+<div id='aliases'>
+  {#each Object.entries(aliases) as [key, value]}
+    <div class='aliasLine'>
+      <span class='alias'>{key}</span>
+      <span class='equals'> = </span>
+      <span class='alias'>{value}</span>
+      <span
+        on:click={() => { deleteAlias(key,value); }}
+        class='delete'
+      >
+        X
+      </span>
+    </div>
+  {/each}
 </div>
+<AddAlias 
+  on:newAlias={(e) => {
+    addAlias(e.detail.key, e.detail.def);
+  }}
+/>
 
 <style>
-  #figAlias {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    padding: 0px;
-    margin: 0px;
-    width: 100%;
-    height: 100%;
-  }
-
   #aliases {
     display: flex;
     flex-direction: column;

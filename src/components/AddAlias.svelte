@@ -32,6 +32,7 @@
     </span>
   {:else}
     <span
+      class="add"
       on:click={() => { add = true; aliaskey = ''; aliasdef = ''; }}
     >
       +
@@ -47,19 +48,18 @@
     padding: 0px;
   }
 
-  #addAliasPart span {
-    color: red;
-    cursor: pointer;
-    font-size: 20px;
-    margin: 0px 0px 0px 20px;
-  }
-
   #addAliasPart input {
-    width: 150px;
+    width: 125px;
   }
 
   .equal {
-    margin: 0px 10px 0px 10px;
+    margin: 5px;
+    color: black;
+  }
+
+  .add {
+    color: red;
+    cursor: pointer;
   }
 </style>
 

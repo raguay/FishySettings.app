@@ -1,24 +1,21 @@
-<div id='figpath'>
-  <h3>Fig Paths</h3>
-  <div id='paths'>
-    {#each paths as path}
-      <div class='pathLine'>
-        <span class='path'>{path}</span>
-        <span
-          on:click={() => { deletePath(path); }}
-          class='delete'
-        >
-          X
-        </span>
-      </div>
-    {/each}
-  </div>
-  <AddPath 
-    on:newPath={(e) => {
-      addPath(e.detail);
-    }}
-  />
+<div id='paths'>
+  {#each paths as path}
+    <div class='pathLine'>
+      <span class='path'>{path}</span>
+      <span
+        on:click={() => { deletePath(path); }}
+        class='delete'
+      >
+        X
+      </span>
+    </div>
+  {/each}
 </div>
+<AddPath 
+  on:newPath={(e) => {
+    addPath(e.detail);
+  }}
+/>
 
 <style>
   #figPath {
@@ -28,7 +25,6 @@
     padding: 0px;
     margin: 0px;
     width: 100%;
-    height: 100%;
   }
 
   #paths {

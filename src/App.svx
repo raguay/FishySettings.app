@@ -1,0 +1,58 @@
+
+<script>
+  import Paths from './components/Paths.svelte';
+  import Aliases from './components/Aliases.svelte';
+
+  export let fig;
+
+  function close() {
+    fig.reposition("7");
+  }
+</script>
+
+## Fishy Settings
+
+This application for fig is for setting up search paths and aliases to 
+use with the [fig](https://docs.withfig.com/) terminal assistant. The paths 
+are the different locations on your system to search for fig Rundown documents 
+and applications.
+
+### Fig Paths
+
+To add a path, simply click the red plus at the bottom of the list of paths. 
+Then, add the new path to the input box given and press the enter key or 
+the red plus sign at the end of the input box.
+
+To remove an alias, just click on the red `X` at the end of the line.
+
+<Paths 
+  fig={fig}
+/>
+
+### Fig Aliases
+
+Aliases are ways to set a smaller command line command to a larger string 
+that is harder for you to remember. If you are typing something a 
+whole lot that can be made into an alias, then make an alias!
+
+To add an alias, press the red plus after the list of aliases. The input 
+to the left is for the alias name (what you will type to activate the alias), 
+and the command line to execute in the input box after the equal sign.
+
+To remove an alias, just click on the red `X` at the end of the line.
+
+<Aliases
+  fig={fig}
+/>
+
+## Close the Application
+
+This button will close the application, but the changes have already been 
+saved. Come back soon!
+
+<button
+  on:click={() => { close(); }}
+>
+  Close
+</button>
+
