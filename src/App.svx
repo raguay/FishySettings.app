@@ -1,14 +1,48 @@
 
 <script>
+  import { onMount } from 'svelte';
+  
   import Paths from './components/Paths.svelte';
   import Aliases from './components/Aliases.svelte';
 
   export let fig;
 
+  let expert = false;
+  let appData = {};
+
+  onMount(() => {
+    //
+    // Get the project manager application information.
+    //
+    fig.fread('~/.fig/apps/fishysettings/fishysettings.json',(data, err) => {
+      if(!err) {
+        appData = JSON.parse(data);
+        expert = appData.expert;
+      }
+    });  
+  });
+
   function close() {
     fig.reposition("7");
   }
+  
+  function toggleExpertSave() {
+    fig.fwrite('~/.fig/apps/fishysettings/fishysettings.json', JSON.stringify({ expert: !expert}), (err) => {});
+    expert = !expert;
+  }
+
+  function reload() {
+    fig.run("source ~/.fig/exports/env.fish", (out, err) => {});
+  }
 </script>
+
+<div style="display: flex; flex-direction: column;">
+<div style="display: flex; flex-direction: row;">
+<label for='expert'>Expert</label>
+<input id='expert' name='expert' type='checkbox' checked={expert} on:change={toggleExpertSave} style="margin: 3px 0px 0px 10px;" />
+</div>
+
+{#if !expert}
 
 ## Fishy Settings
 
@@ -17,7 +51,11 @@ use with the [fig](https://docs.withfig.com/) terminal assistant. The paths
 are the different locations on your system to search for fig Rundown documents 
 and applications.
 
+{/if}
+
 ### Fig Paths
+
+{#if !expert}
 
 To add a path, simply click the red plus at the bottom of the list of paths. 
 Then, add the new path to the input box given and press the enter key or 
@@ -25,11 +63,15 @@ the red plus sign at the end of the input box.
 
 To remove an path, just click on the red `X` at the end of the line.
 
+{/if}
+
 <Paths 
   fig={fig}
 />
 
 ### Fig Aliases
+
+{#if !expert}
 
 Aliases are ways to set a smaller command line command to a larger string 
 that is harder for you to remember. If you are typing something a 
@@ -41,18 +83,39 @@ and the command line to execute in the input box after the equal sign.
 
 To remove an alias, just click on the red `X` at the end of the line.
 
+{/if}
+
 <Aliases
   fig={fig}
 />
+
+{#if !expert}
+
+## Reload Environment
+
+This command will source the environment in the current shell to get the 
+new settings defined in this application.
+
+{/if}
+
+<button
+  on:click={() => { reload();}}
+>
+  Reload
+</button>
+
+{#if !expert}
 
 ## Close the Application
 
 This button will close the application, but the changes have already been 
 saved. Come back soon!
 
+{/if}
+
 <button
   on:click={() => { close(); }}
 >
   Close
 </button>
-
+</div>

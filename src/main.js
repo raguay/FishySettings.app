@@ -4,8 +4,8 @@ fig.init = (stdin, options) => {
   //
   // Fig setup.
   //
-  fig.title = fig.env.PWD;
-  fig.icon = 'fig://${fig.env.PWD}'
+  fig.title = 'Fishy Settings';
+  fig.icon = `fig://${fig.env.PWD}`
 
   //
   // Calling the application.
