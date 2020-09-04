@@ -9,4 +9,9 @@ source ~/.fig/exports/env.fish
 
 to load the environment and aliases into your environment.
 
+## Features
 
+- Add new aliases
+- Add new paths for fig
+- load the new environment
+- Export mode that hides comments
