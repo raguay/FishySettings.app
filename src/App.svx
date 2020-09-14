@@ -9,13 +9,20 @@
 
   let expert = false;
   let appData = {};
-
+  let SETTINGSFILE = '~/.config/fish/fishysettings.json';
+  
   onMount(() => {
     //
     // Get the project manager application information.
     //
-    fig.fread('~/.fig/apps/fishysettings/fishysettings.json',(data, err) => {
-      if(!err) {
+    fig.fread(SETTINGSFILE,(data, err) => {
+      if(err) {
+        appData = { 
+          expert: false
+        };
+        expert = false;
+        fig.fwrite(SETTINGSFILE, JSON.stringify({ expert: expert}), (err) => {});
+      } else {
         appData = JSON.parse(data);
         expert = appData.expert;
       }
@@ -27,7 +34,7 @@
   }
   
   function toggleExpertSave() {
-    fig.fwrite('~/.fig/apps/fishysettings/fishysettings.json', JSON.stringify({ expert: !expert}), (err) => {});
+    fig.fwrite(SETTINGSFILE, JSON.stringify({ expert: !expert}), (err) => {});
     expert = !expert;
   }
 
@@ -98,8 +105,8 @@ new settings defined in this application.
 
 {/if}
 
-<button
-  on:click={() => { reload();}}
+<button style="margin: 10px 0px 5px 0px;"
+        on:click={() => { reload();}}
 >
   Reload
 </button>
