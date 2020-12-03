@@ -65,7 +65,7 @@
   let aliases = [];
   
   onMount(() => {
-    fig.fread('~/.fig/exports/aliases.fish', (data, err) => {
+    fig.fread('~/.fig/user/aliases/aliases.fish', (data, err) => {
       if(err) {
         //
         // Error: file most likely doesn't exist. Read from zsh version.
@@ -107,7 +107,7 @@
     for( var key in aliases) {
       saveFile += `alias ${key}="${aliases[key]}"\n`;
     }
-    fig.fwrite('~/.fig/exports/aliases.fish', saveFile, (error) => {
+    fig.fwrite('~/.fig/user/aliases/aliases.fish', saveFile, (error) => {
       console.log(`Error: ${error}`);
     });
   }

@@ -51,36 +51,28 @@
 
   export let fig;
 
-  let rawFile = '';
+  let rawFile = [];
   let paths = [];
   let rawFigPath = '';
   
   onMount(() => {
-    fig.fread('~/.fig/exports/env.fish', (data, err) => {
+    fig.fread('~/.fig/user/aliases/env.fish', (data, err) => {
       if(err) {
         //
         // Error: file most likely doesn't exist. Read from zsh version.
         //
-        fig.fread('~/.fig/exports/env.sh',(data, err) => {
-          if(err) {
-            paths = ['~/.fig/bin','~/run'];
-            rawFile = `set -xg FIGPATH "~/.fig/bin:~/run"\n\nsource "~/.fig/exports/aliases.fish"\n`;
-            fig.fwrite('~/.fig/exports/env.fish', rawFile, (err) => {});
-          } else {
-            if((data !== null)&&(typeof data === 'string')&&(data !== '')) {
-              rawFile = data.split('\n');
-              rawFigPath = rawFile.filter(line => line.includes('FIGPATH'))[0];
-              paths = rawFigPath.split('=')[1].replace(new RegExp('\"','g'),'').split(':');
-              rawFile = `set -xg FIGPATH "~/.fig/bin:~/run"\n\nsource "~/.fig/exports/aliases.fish"\n`;
-              fig.fwrite('~/.fig/exports/env.fish',rawFile, (err) => {});
-            }
-        }});
+        paths = ['~/.fig/apps','~/.fig/user/apps', '~/team/apps']
+        savePaths();
       } else {
         //
         // Read the paths that we currently have.
         //
         if((data !== null)&&(typeof data === 'string')&&(data !== '')) {
           rawFile = data.split('\n');
+          rawFigPath = rawFile.filter(line => line.includes('FIGPATH'))[0];
+          paths = rawFigPath.split(' ')[3].replace(new RegExp('\"','g'),'').split(':');
+        } else if(data !== null) {
+          rawFile = data;
           rawFigPath = rawFile.filter(line => line.includes('FIGPATH'))[0];
           paths = rawFigPath.split(' ')[3].replace(new RegExp('\"','g'),'').split(':');
         }
@@ -97,13 +89,25 @@
   }
 
   function savePaths() {
+    var addSource = true;
+    var addPath = true;
     var saveFile = rawFile.map(line => {
       if(line.includes('FIGPATH')) {
         line = `set -xg FIGPATH "${paths.join(':')}"`;
+        addPath = false;
+      }
+      if(line.includes('aliases.fish')) {
+        addSource = false;
       }
       return line;
     });
-    fig.fwrite("~/.fig/exports/env.fish", saveFile.join('\n'), (error) => {
+    if(addPath) {
+      saveFile.push(`set -xg FIGPATH "${paths.join(':')}";`);
+    }
+    if(addSource) {
+      saveFile.push('\nsource ~/.fig/user/aliases/aliases.fish;\n');
+    }
+    fig.fwrite("~/.fig/user/aliases/env.fish", saveFile.join('\n'), (error) => {
       console.log(`Error: ${error}`);
     });
   }

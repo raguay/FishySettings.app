@@ -13,7 +13,7 @@
   
   onMount(() => {
     //
-    // Get the project manager application information.
+    // Get the fishy settings application information.
     //
     fig.fread(SETTINGSFILE,(data, err) => {
       if(err) {
@@ -26,7 +26,12 @@
         appData = JSON.parse(data);
         expert = appData.expert;
       }
-    });  
+    });
+
+    //
+    // Check for the fish init function for fish and adding to the
+    // prompt okay.
+    //
   });
 
   function close() {
@@ -39,7 +44,7 @@
   }
 
   function reload() {
-    fig.run("source ~/.fig/exports/env.fish", (out, err) => {});
+    fig.run("source ~/.fig/user/aliases/env.fish", (out, err) => {});
   }
 </script>
 
