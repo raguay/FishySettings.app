@@ -61,7 +61,7 @@
         //
         // Error: file most likely doesn't exist. Read from zsh version.
         //
-        paths = ['~/.fig/apps','~/.fig/user/apps', '~/team/apps']
+        paths = ['~/.fig/apps','~/.fig/user/apps', '~/.fig/team/apps']
         savePaths();
       } else {
         //
