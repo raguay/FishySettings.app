@@ -32,6 +32,59 @@
     // Check for the fish init function for fish and adding to the
     // prompt okay.
     //
+    fig.fread('~/.config/fish/functions/fig_init.fish',(data, err) => {
+      if(err) {
+        //
+        // The fig init function isn't made.
+        //
+        fig.fwrite('~/.config/fish/functions/fig_init.fish',`
+function fig_init
+  if set -q FIG_ENV_VAR
+    fig bg:init (tty)
+    fig bg:cd || true
+
+    set -xg TTY (tty)
+    set -xg FIG_ENV_VAR 1
+    fig source
+  end
+end
+        `);
+        fig.execute('echo "\nfig_init\n" >> ~/.config/fish/conf.d/env.fish',(err) => {});
+      }
+    });
+
+    //
+    // Add the commands to the fish_prompt.
+    //
+    fig.fread('~/.config/fish/functions/fish_prompt.fish',(data, err) => {
+      if(err) {
+        //
+        // No function file. Create it as we need it.
+        //
+        fig.fwrite('~/.config/fish/functions/fish_prompt.fish',`
+function fish_prompt
+  pwd > ~/.path
+  fig bg:cd
+  "$ "
+end
+        `);
+      } else {
+        var result = [];
+        var hasIt = false;
+        data.split('\n').forEach( (line) => {
+          result.push(line);
+          if(line.includes('fish_prompt')) {
+            result.push("\tpwd > ~/.path\n\tfig bg:cd\n");
+          }
+          if(line.includes('fig bg:cd')) {
+            hasIt = true;
+          }
+        });
+        if(!hasIt) {
+          fig.fwrite('~/.config/fish/functions/fish_prompt.fish', result.join("\n"));
+        }
+      }
+    });
   });
 
   function close() {
